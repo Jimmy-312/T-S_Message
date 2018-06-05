@@ -35,7 +35,9 @@ class Ui_Dialog(object):
         self.pushButton.setObjectName("pushButton")
 
         self.pushButton.clicked.connect(self.buttonClicked)
-
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(60, 200, 91, 20))
+        self.label.setObjectName("label")
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -47,21 +49,19 @@ class Ui_Dialog(object):
 
 
     def buttonClicked(self):
-        t=ftp.receive()
-        t=t.split('%')[1:]
-        t.reverse()
-        #print(t)
-        self.textBrowser.clear()
-        for i in t:
-            i=i.split(':')
-            a=i[0]+':'
-            b='  '+i[1]
-            #out=i+"/n"+out
-            self.textBrowser.append(a)
-            self.textBrowser.append(b)
-        #print(out)
-        
-        
+        t=ftp.ftp('r')
+        if t=='err':
+            self.label.setText(_translate("Dialog", "连接失败"))
+        else:
+            t=t.split('%')[1:]
+            #t.reverse()
+            self.textBrowser.clear()
+            for i in t:
+                i=i.split(':')
+                a=i[0]+':'
+                b='  '+i[1]
+                self.textBrowser.append(a)
+                self.textBrowser.append(b)
         
         
 

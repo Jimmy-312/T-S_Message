@@ -32,6 +32,9 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(60, 200, 91, 20))
         self.label.setObjectName("label")
+        self.label2 = QtWidgets.QLabel(Dialog)
+        self.label2.setGeometry(QtCore.QRect(150, 250, 91, 20))
+        self.label2.setObjectName("label")
         #self.pushButton.clicked.connect(Dialog.PushButtonlClicked)
         self.pushButton.clicked.connect(self.buttonClicked)
         
@@ -56,14 +59,16 @@ class Ui_Dialog(object):
         
         
         self.label.setText(_translate("Dialog", "信息类别："))
+        
 
     def buttonClicked(self):
-        t=self.plainTextEdit.toPlainText()
-        n=self.comboBox.currentText()
-        out=n+":"+t
-        ftp.send(out)
-        
-        
+        try:
+            t=self.plainTextEdit.toPlainText()
+            n=self.comboBox.currentText()
+            out=n+":"+t
+            ftp.ftp('s',out)
+        except:
+            self.label2.setText(_translate("Dialog", "连接失败"))
 
 
 
